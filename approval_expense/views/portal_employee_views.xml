@@ -1,0 +1,12 @@
+<odoo>
+
+    <template id="portal_my_home_menu_employee" name="Employee Portal Menu" customize_show="True" inherit_id="portal.portal_my_home" priority="15">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <a type="action" class="list-group-item list-group-item-action"
+               href="/my/employees">
+                <i class="fa fa-users me-2"></i>
+                Employees
+            </a>
+        </xpath>
+    </template>
+</odoo>
