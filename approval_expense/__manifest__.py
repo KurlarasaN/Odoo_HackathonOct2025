@@ -2,12 +2,12 @@
 {
     'name': 'Expense Management',
     'version': '1.0',
-    'summary': '',
+    'summary': 'Expense Management',
     'author': 'Crewxdev',
     'license': "OPL-1",
     'website': '',
-    'description': """ """,
-    'depends': ['website','hr','hr_expense','portal'],
+    'description': """ Expense Management """,
+    'depends': ['website','hr_expense','portal'],
     'data': [
         'security/ir.model.access.csv',
             'views/approver_views.xml',
