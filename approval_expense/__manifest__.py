@@ -9,7 +9,10 @@
     'description': """ """,
     'depends': ['website','hr','hr_expense','portal'],
     'data': [
+        'security/ir.model.access.csv',
+            'views/approver_views.xml',
             'views/signup.xml',
+			'views/portal_templates.xml',
             'views/portal_employee_views.xml',
             'views/portal_employee_template.xml',
             'views/create_employee_form_template.xml',
