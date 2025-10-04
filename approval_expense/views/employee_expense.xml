@@ -4,10 +4,56 @@
     	<t t-call="portal.portal_layout">
     		<div class="container mt-4 mb-4 employee_expense_profiles">
 	            <div class="card shadow-sm p-4">
-<!-- 		             <form method="post" action="/submit/skill_request" class="row g-4"> -->
-<!-- 		             </form> -->
+					<div class="row mb-3">
+						<div class="col-12 d-flex justify-content-start">
+							<a t-att-href="'/employee_upload/%s' % expenses" class="btn btn-primary">
+								Upload
+							</a>
+							<a t-att-href="'/employee_new/%s' % expenses" class="btn btn-primary">
+								New
+							</a>
+						</div>
+					</div>
+					<div class="container mt16 mb16 border rounded p-3">
+						<div class="col-12 d-flex justify-content-start">
+						<p class="card-text mt-2">
+                        	<t t-esc="submit_total_amt"/> <strong>To Submit</strong>
+                        </p>
+						</div>
+					</div>
+					 <div class="container mt16 mb16 border rounded p-3">
+			            <t t-if="expenses" t-call="portal.portal_table">
+				            <thead>
+				                <tr class="active">
+				                    <th name="expense_employee">Employee</th>
+				                    <th name="expense_des">Description</th>
+				                    <th name="expense_date" class='d-none d-md-table-cell'>Date</th>
+				                    <th name="expense_category">Category</th>
+				                    <th name="expense_paid">Paid By</th>
+				                    <th name="expense_remark">Remark</th>
+				                    <th name="expense_amount" class="text-end pe-3">Amount</th>
+				                    <th name="expense_status">Status</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                <t t-foreach="expenses" t-as="expense">
+				                	<tr>
+				                		<td><span t-field="expense.employee_id"/></td>
+				                		<td><span t-field="expense.name"/></td>
+				                		<td><span t-field="expense.date"/></td>
+				                		<td><span t-field="expense.product_id"/></td>
+				                		<td><span t-field="expense.payment_mode"/></td>
+				                		<td><span t-field="expense.description"/></td>
+				                		<td><span t-field="expense.total_amount_currency"/></td>
+				                		<td><span t-field="expense.state"/></td>
+				                	</tr>
+				                </t>
+               				</tbody>
+	            		</t>
+		            </div>
+		            </div>
+		           
 	            </div>
-            </div>
     	</t>
    	</template>
 </odoo>
