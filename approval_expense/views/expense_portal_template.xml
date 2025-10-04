@@ -73,23 +73,23 @@
                         </td>
                         <td class="text-end"><span t-out="expense.total_amount" t-options='{"widget": "monetary", "display_currency": expense.currency_id}'/></td>
                        
-                        <td class="text-center text-bg-success">
+                        <td class="text-center">
                         	<a t-if="expense.state != 'approved'"
 			                    t-att-href="'/expense/approved/%s' % expense.id"
 			                    title="Approve"
 			                    aria-label="Approve"
-			                    class="btn btn-sm btn-primary"
+			                    class="btn btn-sm text-bg-success"
 			                    role="button"
 			                >
 			                    <i class="fa fa-check"/><span class='d-none d-md-inline'> Approve </span>
 			                </a>
                         </td>
-                        <td class="text-center text-bg-danger">
+                        <td class="text-center">
                         	<a t-if="expense.state != 'refused'"
 			                    t-att-href="'/expense/reject/%s' % expense.id"
 			                    title="Reject"
 			                    aria-label="Reject"
-			                    class="btn btn-sm btn-primary"
+			                    class="btn btn-sm text-bg-danger"
 			                    role="button"
 			                >
 			                    <i class="fa fa-close"/><span class='d-none d-md-inline'> Reject </span>

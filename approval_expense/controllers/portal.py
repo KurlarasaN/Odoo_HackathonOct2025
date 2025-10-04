@@ -116,4 +116,21 @@ class PortalExpense(CustomerPortal):
             'filterby': filterby,
         })
         return values
+    
+    @http.route(['/expense/approved/<int:expense_id>'], type='http', auth="user", website=True)
+    def approved_expense(self, expense_id):
+        expense_sheet = request.env['hr.expense.sheet'].sudo().search([('expense_line_ids','in', [expense_id])])
+        print(expense_sheet)
+        if expense_sheet:
+            expense_sheet.action_approve_expense_sheets()
+        return request.redirect('/my/approval_expenses')
+    
+    @http.route(['/expense/reject/<int:expense_id>'], type='http', auth="user", website=True)
+    def refused_expense(self, expense_id):
+        expense_sheet = request.env['hr.expense.sheet'].sudo().search([('expense_line_ids','in', [expense_id])])
+        print(expense_sheet)
+        if expense_sheet:
+            expense_sheet.action_refuse_expense_sheets()
+        return request.redirect('/my/approval_expenses')
+        
         
