@@ -14,6 +14,7 @@
             'views/portal_employee_views.xml',
             'views/portal_employee_template.xml',
             'views/create_employee_form_template.xml',
+            'views/expense_portal_template.xml',
              ],
     'installable': True,
     'auto_install': False,

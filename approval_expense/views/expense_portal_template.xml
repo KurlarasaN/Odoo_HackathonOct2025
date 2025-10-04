@@ -1,0 +1,20 @@
+<odoo>
+	
+	<template id="portal_my_home_expense"
+              name="Portal Expenses" inherit_id="portal.portal_my_home"
+              customize_show="True" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="portal_client_category_enable" t-value="True"/>
+        </xpath>
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon"
+                   t-value="'/hr_expense/static/description/icon.svg'"/>
+                <t t-set="title">Expenses</t>
+                <t t-set="url" t-value="'/approvals_to_review'"/>
+                <t t-set="text">Approvals to review</t>
+                <t t-set="placeholder_count" t-value="'approval_expense_count'"/>
+            </t>
+        </div>
+    </template>
+</odoo>
