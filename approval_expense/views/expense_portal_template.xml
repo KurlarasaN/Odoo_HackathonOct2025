@@ -1,4 +1,12 @@
 <odoo>
+	<template id="portal_my_home_menu_expense" name="Portal layout : expense menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'expense'" t-attf-class="breadcrumb-item #{'active ' if not expense else ''}">
+                <a t-if="expense" t-attf-href="/my/approval_expenses?{{ keep_query() }}">Approval to Review</a>
+                <t t-else="">Expense</t>
+            </li>
+        </xpath>
+    </template>
 	
 	<template id="portal_my_home_expense"
               name="Portal Expenses" inherit_id="portal.portal_my_home"
@@ -11,7 +19,7 @@
                 <t t-set="icon"
                    t-value="'/hr_expense/static/description/icon.svg'"/>
                 <t t-set="title">Expenses</t>
-                <t t-set="url" t-value="'/approvals_to_review'"/>
+                <t t-set="url" t-value="'/my/approval_expenses'"/>
                 <t t-set="text">Approvals to review</t>
                 <t t-set="placeholder_count" t-value="'approval_expense_count'"/>
             </t>
@@ -25,5 +33,72 @@
                 <t t-set="placeholder_count" t-value="'employee_expense_count'"/>
             </t>
         </div>
+    </template>
+    
+    <template id="portal_my_approval_expenses" name="Approvals To Review">
+      <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Approvals to Review</t>
+        </t>
+        <t t-if="not expenses">
+            <p class="alert alert-warning">There are currently no expense for your approval.</p>
+        </t>
+        <t t-if="expenses" t-call="portal.portal_table">
+            <thead>
+                <tr class="active">
+                    <th name="approval_subject">Approval Subject</th>
+                    <th name="request_owner">Request Owner</th>
+                    <th name="category">Category</th>
+                    <th name="request_status">Request Status</th>
+                    <th name="total_amount" class="text-end">Total Amount (in company's currency)</th>
+                    <th name="approve"></th>
+                    <th name="reject"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="expenses" t-as="expense_data">
+                    <t t-set="expense" t-value="expense_data['expense']"/>
+                    <tr>
+                        <td>
+                            <span t-field="expense.name"/>
+                        </td>
+                        <td><span t-field="expense.employee_id"/></td>
+                        <td>
+                            <span t-field="expense.product_id"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="expense.state"/>
+                        </td>
+                        <td class="text-end"><span t-out="expense.total_amount" t-options='{"widget": "monetary", "display_currency": expense.currency_id}'/></td>
+                       
+                        <td class="text-center text-bg-success">
+                        	<a t-if="expense.state != 'approved'"
+			                    t-att-href="'/expense/approved/%s' % expense.id"
+			                    title="Approve"
+			                    aria-label="Approve"
+			                    class="btn btn-sm btn-primary"
+			                    role="button"
+			                >
+			                    <i class="fa fa-check"/><span class='d-none d-md-inline'> Approve </span>
+			                </a>
+                        </td>
+                        <td class="text-center text-bg-danger">
+                        	<a t-if="expense.state != 'refused'"
+			                    t-att-href="'/expense/reject/%s' % expense.id"
+			                    title="Reject"
+			                    aria-label="Reject"
+			                    class="btn btn-sm btn-primary"
+			                    role="button"
+			                >
+			                    <i class="fa fa-close"/><span class='d-none d-md-inline'> Reject </span>
+			                </a>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </t>
+      </t>
     </template>
 </odoo>
