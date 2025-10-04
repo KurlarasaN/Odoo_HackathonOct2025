@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Expanse Management',
+    'name': 'Expense Management',
     'version': '1.0',
     'summary': '',
     'author': 'Crewxdev',
     'license': "OPL-1",
     'website': '',
     'description': """ """,
-    'depends': ['website','hr'],
+    'depends': ['website','hr','hr_expense'],
     'data': [
              ],
     'installable': True,
