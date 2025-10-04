@@ -15,7 +15,15 @@
             <t t-set="portal_client_category_enable" t-value="True"/>
         </xpath>
         <div id="portal_client_category" position="inside">
-            <t t-call="portal.portal_docs_entry">
+        	<t t-call="portal.portal_docs_entry" groups="hr_expense.group_hr_expense_manager">
+                <t t-set="icon"
+                   t-value="'/hr/static/description/icon.svg'"/>
+                <t t-set="title">Users</t>
+                <t t-set="url" t-value="'/my/users'"/>
+                <t t-set="text">User and Roles</t>
+                <t t-set="placeholder_count" t-value="'user_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry" groups="hr_expense.group_hr_expense_user">
                 <t t-set="icon"
                    t-value="'/hr_expense/static/description/icon.svg'"/>
                 <t t-set="title">Expenses</t>
@@ -24,7 +32,7 @@
                 <t t-set="placeholder_count" t-value="'approval_expense_count'"/>
             </t>
             
-            <t t-call="portal.portal_docs_entry">
+            <t t-call="portal.portal_docs_entry" groups="hr_expense.group_hr_expense_team_approver,hr_expense.group_hr_expense_manager">
                 <t t-set="icon"
                    t-value="'/hr_expense/static/description/icon.svg'"/>
                 <t t-set="title">Employee Expenses</t>

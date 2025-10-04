@@ -25,9 +25,13 @@ class PortalExpense(CustomerPortal):
             values['employee_expense_count'] = request.env['hr.expense'] \
                 .sudo().search_count(
                 [('employee_id', '=', request.env.user.employee_id.id)])
+        if 'user_count' in counters:
+            values['user_count'] = request.env['res.users'] \
+                .sudo().search_count(
+                [])
         return values
 
-    @http.route(['/my/approval_expenses', '/my/approval_expenses/page/<int:page>'], type='http', auth="user", website=True)
+    @http.route(['/my/approval_expenses', '/my/approval_expenses/page/<int:page>'], type='http', auth="public", website=True)
     def portal_approval_expenses(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw):
         values = self._prepare_my_expenses_approval_values(page, date_begin, date_end, sortby, filterby)
 
