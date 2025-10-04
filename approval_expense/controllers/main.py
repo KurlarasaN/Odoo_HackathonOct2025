@@ -11,22 +11,21 @@ class EmployeePortal(http.Controller):
             'employees': employees,
         })
 
+    @http.route('/create_employee_form', type='http', auth='user', website=True)
+    def create_employee_form(self, **kwargs):
+        employees = request.env['hr.employee'].sudo().search([])
+        return request.render('approval_expense.create_employee_form_template', {
+            'employees': employees,
+        })
+
     @http.route('/create_employee', type='http', auth='user', methods=['POST'], website=True)
     def create_employee(self, **post):
-        # Get form data
         name = post.get('name')
-        manager_id = post.get('manager_id')
-
-        # Convert manager_id to int if exists
-        manager_id = int(manager_id) if manager_id else False
-
-        # Create new employee
+        manager_id = int(post.get('manager_id')) if post.get('manager_id') else False
         request.env['hr.employee'].sudo().create({
             'name': name,
             'parent_id': manager_id
         })
-
-        # Redirect back to employee list
         return request.redirect('/my/employees')
     
     @http.route(['/my/employee_expense'], type='http', auth="user", website=True)
