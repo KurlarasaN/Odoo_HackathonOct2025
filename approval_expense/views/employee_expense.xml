@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <template id="employee_expense" name="Employee Expense Portal">
+    	<t t-call="portal.portal_layout">
+    		<div class="container mt-4 mb-4 employee_expense_profiles">
+	            <div class="card shadow-sm p-4">
+					<div class="row mb-3">
+						<div class="col-12 d-flex justify-content-start">
+							<a t-att-href="'/employee_upload/%s' % expenses" class="btn btn-primary">
+								Upload
+							</a>
+							<a href="/my_expense/new" class="btn btn-primary">
+								New
+							</a>
+						</div>
+					</div>
+					<div class="container mt16 mb16 border rounded p-3">
+						<div class="col-12 d-flex justify-content-start">
+						
+							<div class="col-4 card-text mt-2 d-block text-center">
+	                        	<p><t t-options='{"widget": "monetary", "display_currency": request.env.user.company_id.currency_id}' t-esc="to_submit_amount"/></p> <strong>To Submit</strong>
+	                        </div>
+	                        <div class="col-4 card-text mt-2 d-block text-center">
+	                        	<p><t t-options='{"widget": "monetary", "display_currency": request.env.user.company_id.currency_id}' t-esc="submitted_amount"/> </p> <strong>Waiting Approval</strong>
+	                        </div>
+	                        <div class="col-4 card-text mt-2 d-block text-center">
+	                        	<p><t t-options='{"widget": "monetary", "display_currency": request.env.user.company_id.currency_id}' t-esc="approved_amount"/> </p> <strong>Approved</strong>
+	                        </div>
+						</div>
+					</div>
+					 <div class="container mt16 mb16 border rounded p-3">
+			            <t t-if="expenses" t-call="portal.portal_table">
+				            <thead>
+				                <tr class="active">
+				                    <th name="expense_employee">Employee</th>
+				                    <th name="expense_des">Description</th>
+				                    <th name="expense_date" class='d-none d-md-table-cell'>Date</th>
+				                    <th name="expense_category">Category</th>
+				                    <th name="expense_paid">Paid By</th>
+				                    <th name="expense_remark">Remark</th>
+				                    <th name="expense_amount" class="text-end pe-3">Amount</th>
+				                    <th name="expense_status">Status</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                <t t-foreach="expenses" t-as="expense">
+				                	<tr>
+				                		<td><span t-field="expense.employee_id"/></td>
+				                		<td><span t-field="expense.name"/></td>
+				                		<td><span t-field="expense.date"/></td>
+				                		<td><span t-field="expense.product_id"/></td>
+				                		<td><span t-field="expense.payment_mode"/></td>
+				                		<td><span t-field="expense.description"/></td>
+				                		<td><span t-field="expense.total_amount_currency"/></td>
+				                		<td><span t-field="expense.state"/></td>
+				                	</tr>
+				                </t>
+               				</tbody>
+	            		</t>
+		            </div>
+		            </div>
+		           
+	            </div>
+    	</t>
+   	</template>
+   	
+   	<template id="employee_expense_new" name="New Employee Expense">
+    	<t t-call="portal.portal_layout">
+    		<t t-set="breadcrumbs_searchbar" t-value="True"/>
+        	<t t-call="portal.portal_searchbar">
+            	<t t-set="title">My Expense</t>
+        	</t>
+    		<div class="container mt-4 mb-4 employee_expense_new">
+	            <div class="card shadow-sm p-4">
+					<div class="row mb-5">
+						<div class="col-12 d-flex justify-content-start">
+							<a href="/attach/receipt" class="btn btn-primary">
+								Attach Receipt
+							</a>
+						</div>
+					</div>
+					<div></div>
+					<form method="post" action="/submit/my_expense" class="row g-4">
+                    	<div class="row col-12">
+                    		<div class="col-6">
+                            	<label for="name" class="form-label fw-bold">Description</label>
+                            	<input name="name" type="text" id="name" rows="4"
+                                      class="form-control"
+                                     ></input>
+                            </div>
+                            <div class="col-6">
+                                <label for="date" class="form-label fw-bold">Expense Date</label>
+                            	<input name="expense_date" type="date" id="expense_date" rows="4"
+                                      class="form-control"
+                                     ></input>
+                       		</div>
+                       		<div class="col-6">
+                            	<label for="category_id" class="form-label fw-bold">category</label>
+	                             <select class="form-control" name="category_id" id="category_id">
+	                            	<option value="">-- Select Category --</option>
+	                            	<t t-foreach="products" t-as="product">
+	                                	<option t-att-value="product.id" t-esc="product.name"/>
+	                            	</t>
+	                        	</select>
+                            </div>
+                            <div class="col-6">
+                                <label for="date" class="form-label fw-bold">Paid By</label>
+                            	 <select name="payment_mode" required="" class="form-control select_box_test">
+							        <option value="own_account"
+							            t-att-selected="payment_mode == 'own_account' and 'selected' or None">
+							            Employee(reimburse)
+							        </option>
+							        <option value="company_account"
+							            t-att-selected="payment_mode == 'company_account' and 'selected' or None">
+							            Company
+							        </option>
+							    </select>
+                       		</div>
+                       		<div class="col-3">
+                                <label for="total_amount_currency" class="form-label fw-bold">Total Amount</label>
+                            	<input name="total_amount_currency" id="total_amount_currency" rows="4" 
+                                      class="form-control" type="number"
+                                     ></input>
+                       		</div>
+                       		<div class="col-3">
+                                <label for="currency_id" class="form-label fw-bold">Currency</label>
+                            	 <select class="form-control" name="category_id" id="category_id">
+	                            	<option value="">-- Select Currency --</option>
+	                            	<t t-foreach="currency" t-as="cur">
+	                                	<option t-att-value="cur.id" t-esc="cur.name"/>
+	                            	</t>
+	                        	</select>
+                       		</div>
+                       		<div class="col-6">
+                                <label for="remark" class="form-label fw-bold">Remark</label>
+                            	<input name="remark" id="remark" rows="4" type="text"
+                                      class="form-control"
+                                     ></input>
+                       		</div>
+                       		<div class="col-12">
+                                <label for="description" class="form-label fw-bold">Description</label>
+                            	<textarea  name="description" id="description" rows="4" type="text"
+                                      class="form-control"
+                                     ></textarea >
+                       		</div>
+                 		</div>
+                 		<div class="col-12 text-end">
+                            <button type="button" class="btn btn-primary  button_submit_expense" style="float: left;">
+                                Submit
+                            </button>
+                        </div>
+					</form>
+		            </div>
+	            </div>
+    	</t>
+   	</template>
+</odoo>

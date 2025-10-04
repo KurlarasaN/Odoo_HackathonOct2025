@@ -1,0 +1,67 @@
+<odoo>
+    <template id="portal_my_users_template" name="Portal Users List">
+       <t t-call="website.layout">
+        <div class="container mt16">
+            <h3>Users List</h3>
+
+            <a href="/create_user_form_template" class="btn btn-primary mb16">Create New User</a>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Role / Groups</th>
+                        <th>Manager</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="users" t-as="user">
+                        <tr>
+                            <td><a t-att-href="'/user/details/%s' % user.id" t-esc="user.name"/></td>
+                            <td>
+                                <t t-if="user.has_group('hr_expense.group_hr_expense_manager')">
+                                    <span>Admin</span>
+                                </t>
+                                <t t-elif="user.has_group('hr_expense.group_hr_expense_user')">
+                                    <span>Manager</span>
+                                </t>
+                                <t t-elif="user.has_group('hr_expense.group_hr_expense_team_approver')">
+                                    <span>Employee</span>
+                                </t>
+
+
+
+
+
+
+                                <!--<t t-foreach="user.groups_id.filtered(lambda g: g.category_id.xml_id == 'base.module_category_human_resources_expenses')" t-as="group">
+                                    <span t-esc="group.name"/>
+                                </t>-->
+                            </td>
+
+                            <td>
+                                <t t-if="user.employee_ids and user.employee_ids[0].parent_id">
+                                    <a t-att-href="'/user/details/%s' % user.id"
+                                       t-esc="user.employee_ids[0].parent_id.name"/>
+                                </t>
+                                <t t-else="">No Manager</t>
+                            </td>
+                            <td><t t-esc="user.email"/></td>
+                            <td>
+                                <form t-att-action="'/reset_user_password'" method="post" style="display:inline-block;">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="user_id" t-att-value="user.id"/>
+                                    <button type="submit" class="btn btn-warning btn-sm">Reset Password</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+    </template>
+</odoo>
