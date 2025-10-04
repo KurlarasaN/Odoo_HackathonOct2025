@@ -19,5 +19,11 @@ class PortalAccount(CustomerPortal):
             values['approval_expense_count'] = request.env['hr.expense'] \
                 .sudo().search_count(
                 [('employee_id.parent_id', '=', request.env.user.employee_id.id)])
+        
+        if 'employee_expense_count' in counters:
+            values['employee_expense_count'] = request.env['hr.expense'] \
+                .sudo().search_count(
+                [('employee_id', '=', request.env.user.employee_id.id)])
+        
         return values
         

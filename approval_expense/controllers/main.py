@@ -28,9 +28,10 @@ class EmployeePortal(http.Controller):
         })
         return request.redirect('/my/employees')
     
-    @http.route(['/my/employee_expense'], type='http', auth="user", website=True)
-    def account_home(self, **kw):
-        """return home to click home in dashboard page"""
-        values = self._prepare_portal_layout_values()
-        return request.render("skit_customer_portal.account_dashbord", values)
-
+    @http.route('/my/employee_expense', type='http', auth='user', website=True)
+    def view_employee_expense_form(self, **kwargs):
+        expense = request.env['hr.expense'].sudo().search([])
+        return request.render('approval_expense.employee_expense', {
+            'expense': expense,
+        })
+    

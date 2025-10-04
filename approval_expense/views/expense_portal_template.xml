@@ -15,6 +15,15 @@
                 <t t-set="text">Approvals to review</t>
                 <t t-set="placeholder_count" t-value="'approval_expense_count'"/>
             </t>
+            
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon"
+                   t-value="'/hr_expense/static/description/icon.svg'"/>
+                <t t-set="title">Employee Expenses</t>
+                <t t-set="url" t-value="'/my/employee_expense'"/>
+                <t t-set="text">Employee View</t>
+                <t t-set="placeholder_count" t-value="'employee_expense_count'"/>
+            </t>
         </div>
     </template>
 </odoo>
