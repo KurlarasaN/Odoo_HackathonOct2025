@@ -147,7 +147,10 @@ class EmployeePortal(http.Controller):
     @http.route('/my_expense/new', type='http', auth='user', website=True)
     def new_employee_expense_form(self, **kwargs):
         expense = request.env['hr.expense'].sudo().search([("employee_id.user_id", "=", request.env.user.id)])
+        product =  request.env['product.product'].sudo().search([])
+        currency =  request.env['res.currency'].sudo().search([])
         return request.render('approval_expense.employee_expense_new', {
             'expenses': expense,
+            'currency' : currency
         })
     
