@@ -31,9 +31,22 @@ class EmployeePortal(http.Controller):
     @http.route('/my/employee_expense', type='http', auth='user', website=True)
     def view_employee_expense_form(self, **kwargs):
         expense = request.env['hr.expense'].sudo().search([("employee_id.user_id", "=", request.env.user.id)])
-        submit_total_amt = sum(expense.mapped('total_amount'))
+        expense_amt = expense.get_expense_dashboard()
+        to_submit_amount = expense_amt['to_submit']['amount']
+        submitted_amount = expense_amt['submitted']['amount']
+        approved_amount = expense_amt['approved']['amount']
         return request.render('approval_expense.employee_expense', {
             'expenses': expense,
-            'submit_total_amt':submit_total_amt
+            'to_submit_amount':to_submit_amount,
+            'submitted_amount':submitted_amount,
+            'approved_amount':approved_amount
+            
+        })
+        
+    @http.route('/my_expense/new', type='http', auth='user', website=True)
+    def new_employee_expense_form(self, **kwargs):
+        expense = request.env['hr.expense'].sudo().search([("employee_id.user_id", "=", request.env.user.id)])
+        return request.render('approval_expense.employee_expense_new', {
+            'expenses': expense,
         })
     

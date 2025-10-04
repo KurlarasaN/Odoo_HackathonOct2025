@@ -9,16 +9,22 @@
 							<a t-att-href="'/employee_upload/%s' % expenses" class="btn btn-primary">
 								Upload
 							</a>
-							<a t-att-href="'/employee_new/%s' % expenses" class="btn btn-primary">
+							<a href="/my_expense/new" class="btn btn-primary">
 								New
 							</a>
 						</div>
 					</div>
 					<div class="container mt16 mb16 border rounded p-3">
 						<div class="col-12 d-flex justify-content-start">
-						<p class="card-text mt-2">
-                        	<t t-esc="submit_total_amt"/> <strong>To Submit</strong>
-                        </p>
+							<p class="card-text mt-2">
+	                        	<t t-esc="to_submit_amount"/> <strong>To Submit</strong>
+	                        </p>
+	                        <p class="card-text mt-2">
+	                        	<t t-esc="submitted_amount"/> <strong>Waiting Approval</strong>
+	                        </p>
+	                        <p class="card-text mt-2">
+	                        	<t t-esc="approved_amount"/> <strong>Approved</strong>
+	                        </p>
 						</div>
 					</div>
 					 <div class="container mt16 mb16 border rounded p-3">
@@ -53,6 +59,25 @@
 		            </div>
 		            </div>
 		           
+	            </div>
+    	</t>
+   	</template>
+   	
+   	<template id="employee_expense_new" name="New Employee Expense">
+    	<t t-call="portal.portal_layout">
+    		<div class="container mt-4 mb-4 employee_expense_new">
+	            <div class="card shadow-sm p-4">
+					<div class="row mb-3">
+						<div class="col-12 d-flex justify-content-start">
+							<a href="/attach/receipt" class="btn btn-primary">
+								Attach Receipt
+							</a>
+						</div>
+					</div>
+					<div class="container mt16 mb16 border rounded p-3">
+						
+					</div>
+		            </div>
 	            </div>
     	</t>
    	</template>
