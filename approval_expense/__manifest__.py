@@ -7,9 +7,10 @@
     'license': "OPL-1",
     'website': '',
     'description': """ """,
-    'depends': ['website','hr','hr_expense'],
+    'depends': ['website','hr','hr_expense','portal'],
     'data': [
             'views/signup.xml',
+            'views/portal_templates.xml'
              ],
     'installable': True,
     'auto_install': False,

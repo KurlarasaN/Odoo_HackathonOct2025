@@ -28,3 +28,10 @@ class EmployeePortal(http.Controller):
 
         # Redirect back to employee list
         return request.redirect('/my/employees')
+    
+    @http.route(['/my/employee_expense'], type='http', auth="user", website=True)
+    def account_home(self, **kw):
+        """return home to click home in dashboard page"""
+        values = self._prepare_portal_layout_values()
+        return request.render("skit_customer_portal.account_dashbord", values)
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <template id="employee_expense" name="Employee Expense Portal">
+    	<t t-call="portal.portal_layout">
+    		<div class="container mt-4 mb-4 employee_expense_profiles">
+	            <div class="card shadow-sm p-4">
+<!-- 		             <form method="post" action="/submit/skill_request" class="row g-4"> -->
+<!-- 		             </form> -->
+	            </div>
+            </div>
+    	</t>
+   	</template>
+</odoo>
