@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="expense_signup" inherit_id="auth_signup.signup" name="OAuth Signup buttons">
+        <xpath expr="//div[hasclass('oe_login_buttons')]" position="before">
+
+            <div class="mb-3 field-country_id pt-2">
+                <label for="country_id">Country</label>
+                <select name="country_id" class="form-control">
+                    <option value="" disabled="True" selected="True">Select your country</option>
+                    <option t-foreach="countries" t-as="country" t-key="country.id" t-att-value="country.id">
+                        <t t-esc="country.name"/>
+                    </option>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>

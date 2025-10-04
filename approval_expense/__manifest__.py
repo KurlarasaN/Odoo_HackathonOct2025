@@ -9,6 +9,7 @@
     'description': """ """,
     'depends': ['website','hr','hr_expense'],
     'data': [
+            'views/signup.xml',
              ],
     'installable': True,
     'auto_install': False,
