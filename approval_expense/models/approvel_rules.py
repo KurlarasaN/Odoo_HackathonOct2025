@@ -9,6 +9,7 @@ class ApprovalRules(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Approval Rule', required=True)
+    user_id = fields.Many2one('res.users', string='User', required=True)
     approver_ids= fields.One2many('approval.rules.approver', 'approver_id')
 
     def action_travel_policy(self):
